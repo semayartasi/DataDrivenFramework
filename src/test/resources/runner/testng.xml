@@ -3,7 +3,6 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="C:/Users/semay/IdeaProjects/DataDrivenFramework">
         <classes>
-
             <class name="testcases.LoginTest">
                 <methods>
                     <include name="loginAsBankManager"/>
