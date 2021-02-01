@@ -8,16 +8,16 @@ public class TestProperties {
     public static void main(String[] args) throws IOException {
         System.out.println(System.getProperty("user.dir"));
 
-        Properties config=new Properties();
+        Properties Config=new Properties();
         Properties OR=new Properties();
 
         FileInputStream fis=new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\properties\\Config.properties");
-        config.load(fis);
+        Config.load(fis);
 
         fis=new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\properties\\OR.properties");
         OR.load(fis);
 
-        System.out.println(config.getProperty("browser"));
+        System.out.println(Config.getProperty("browser"));
         System.out.println(OR.getProperty("bmlbutton"));
 
     }
