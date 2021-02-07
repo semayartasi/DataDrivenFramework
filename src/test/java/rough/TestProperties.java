@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class TestProperties {//
-    public static void main(String[] args) throws IOException {//
+    public static void main(String[] args) throws IOException, InterruptedException {//
         System.out.println(System.getProperty("user.dir"));
 
         Properties Config=new Properties(); //
