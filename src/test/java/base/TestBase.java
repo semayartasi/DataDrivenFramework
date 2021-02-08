@@ -48,7 +48,7 @@ public class TestBase {
 
             try {
                 config.load(fis);
-                log.debug("config file loaded");
+                log.debug("config file loaded!!!");
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -60,7 +60,7 @@ public class TestBase {
             }
             try {
                 OR.load(fis);
-                log.debug("or file loaded");
+                log.debug("OR file loaded!!!");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -70,7 +70,7 @@ public class TestBase {
             } else if (config.getProperty("browser").equals("chrome")) {
                 System.setProperty("webdriver.chrome.driver",
                         System.getProperty("user.dir") + "\\src\\test\\resources\\executables\\chromedriver.exe");
-                log.debug("Chrome Launched");
+                log.debug("Chrome Launched!!!");
                 driver = new ChromeDriver();
 
             } else if (config.getProperty("browser").equals("ie")) {
