@@ -1,37 +1,39 @@
 package base;
 
-import com.sun.deploy.config.Config;
+import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Time;
+import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class TestBase {
     /*
-     *WebDriver
-     * Properties
-     * Logs
+     * WebDriver-done
+     * Properties-done
+     * Logs-log4j jar, .log, log4j.properties,Logger class
      * ExtentsReports
      * DB
      * Excel
      * Mail
+     * ReportNg, ExtentRpoerts
+     * Jenkins
      */
 
-    public static WebDriver driver; //
-    public static Properties config = new Properties();//
-    public static Properties OR = new Properties();//
-    public static FileInputStream fis;//
+    public static WebDriver driver;
+    public static Properties config = new Properties();
+    public static Properties OR = new Properties();
+    public static FileInputStream fis;
+    public static Logger log=Logger.getLogger("devpinoyLogger");
 
     @BeforeSuite
     public void setUp() throws InterruptedException {
@@ -46,6 +48,8 @@ public class TestBase {
 
             try {
                 config.load(fis);
+                log.debug("config file loaded");
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -56,6 +60,7 @@ public class TestBase {
             }
             try {
                 OR.load(fis);
+                log.debug("or file loaded");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -65,6 +70,7 @@ public class TestBase {
             } else if (config.getProperty("browser").equals("chrome")) {
                 System.setProperty("webdriver.chrome.driver",
                         System.getProperty("user.dir") + "\\src\\test\\resources\\executables\\chromedriver.exe");
+                log.debug("Chrome Launched");
                 driver = new ChromeDriver();
 
             } else if (config.getProperty("browser").equals("ie")) {
@@ -72,13 +78,20 @@ public class TestBase {
                         System.getProperty("user.dir") + "\\src\\test\\resources\\executables\\IEDriverServer.exe");
                 driver = new InternetExplorerDriver();
             }
-
-
             driver.get(config.getProperty("testsiteurl"));
+            log.debug("Navigated to:"+config.getProperty("testsiteurl"));
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(Integer.parseInt(config.getProperty("implicit.wait")),
                     TimeUnit.SECONDS);
 
+        }
+    }
+        public  boolean isElementPresent(By by){
+        try {
+            driver.findElement(by);
+            return true;
+        }catch (NoSuchElementException e){
+         return false;
         }
     }
 
@@ -89,6 +102,6 @@ public class TestBase {
         if (driver != null) {
             driver.quit();
         }
-
+        log.debug("Test execution completed");
     }
 }
