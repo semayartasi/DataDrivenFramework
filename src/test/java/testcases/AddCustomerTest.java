@@ -22,6 +22,7 @@ public class AddCustomerTest extends TestBase {
        Alert alert= wait.until(ExpectedConditions.alertIsPresent());
        Assert.assertTrue(alert.getText().contains(alertText));
        alert.accept();
+        Assert.fail("Login is not succesfully"); //for just test
     }
 
     @DataProvider

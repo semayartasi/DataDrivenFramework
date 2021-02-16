@@ -8,15 +8,16 @@ import org.openqa.selenium.TakesScreenshot;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 public class TestUtil extends TestBase {
     public static String screenshotPath;
     public static String screenshotName;
     public static void captureScreenShot() throws IOException {
         File scrFile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        screenshotName="error.jpg";
+        Date d=new Date();
+        screenshotName=d.toString().replace(":","_").replace(" ","_")+".jpg";
         FileUtils.copyFile(scrFile,new File(System.getProperty("user.dir")+"\\target\\surefire-reports\\html\\"+screenshotName));
-
     }
 
 }

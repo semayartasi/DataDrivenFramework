@@ -28,6 +28,7 @@ public class CustomListeners implements ITestListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Reporter.log("Click to see screenhot");
         Reporter.log("<a target=\"_blank\" href=" +TestUtil.screenshotName+ ">Screenshot</a>");
         Reporter.log("<br>");
         Reporter.log("<br>");
