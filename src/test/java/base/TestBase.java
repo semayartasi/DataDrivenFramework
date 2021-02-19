@@ -7,15 +7,20 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.apache.log4j.BasicConfigurator;
 import utilities.ExcelReader;
 import utilities.ExtentManager;
+import utilities.TestUtil;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -123,6 +128,20 @@ public class TestBase {
         } test.log(LogStatus.INFO,"Typing :"+locator+ "entered value as  "+value);
 
     }
+    static WebElement dropdown;
+
+    public  void select(String locator, String value){
+        if (locator.endsWith("_CSS")) {
+            dropdown=driver.findElement(By.cssSelector(OR.getProperty(locator)));
+        }else if (locator.endsWith("_XPATH")){
+            dropdown=driver.findElement(By.xpath(OR.getProperty(locator)));
+        }else if (locator.endsWith("_ID")){
+            dropdown=driver.findElement(By.id(OR.getProperty(locator)));
+        }
+        Select select=new Select(dropdown);
+        select.selectByVisibleText(value);
+        test.log(LogStatus.INFO,"Selecting from dropdown:"+locator+ " value as  "+value);
+    }
         public  boolean isElementPresent(By by){
         try {
             driver.findElement(by);
@@ -131,7 +150,21 @@ public class TestBase {
          return false;
         }
     }
-
+    public static void verifyEquals(String expected, String actual) throws IOException {
+        try{
+            Assert.assertEquals(actual,expected);
+        }catch (Throwable t){
+            TestUtil.captureScreenShot();
+            //ReportNG
+            Reporter.log("<br>"+"Verification failure:"+t.getMessage()+"<br>");
+            Reporter.log("<a target=\"_blank\" href=" +TestUtil.screenshotName+"> <img src="+TestUtil.screenshotName+" height=200 width=200></img></a>");
+            Reporter.log("<br>");
+            Reporter.log("<br>");
+            //ExtentReport
+            test.log(LogStatus.FAIL,"Verification failed with expection:"+t.getMessage());
+            test.log(LogStatus.FAIL,test.addScreenCapture(TestUtil.screenshotName));
+        }
+    }
 
     @AfterSuite
     public void tearDown() {
