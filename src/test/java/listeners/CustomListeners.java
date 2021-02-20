@@ -59,7 +59,7 @@ public class CustomListeners extends TestBase implements ITestListener {
 
     @Override
     public void onStart(ITestContext arg0) {
-      //  test=rep.startTest(arg0.getName().toUpperCase());
+      //  test=rep.startTest(arg0.getName().toUpperCase()); // if I added it not work properly
     }
 
     @Override
