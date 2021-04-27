@@ -31,8 +31,8 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBase {
     /*
-     * WebDriver-done
-     * Properties-done
+     * WebDriver
+     * Properties
      * Logs-log4j jar, .log, log4j.properties,Logger class
      * ExtentsReports
      * DB
