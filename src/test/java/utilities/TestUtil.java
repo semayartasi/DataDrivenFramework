@@ -52,7 +52,7 @@ public class TestUtil extends TestBase {
             String testCase = excel.getCellData(sheetName, "TCID", rNum);
             if(testCase.equalsIgnoreCase(testCase)){
               String runmode=excel.getCellData(sheetName,"runmode",rNum);
-              if(runmode.equalsIgnoreCase("N"))
+              if(runmode.equalsIgnoreCase("Y"))
                   return  true;
               else
                   return false;
